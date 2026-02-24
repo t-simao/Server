@@ -13,6 +13,10 @@ const client = new MongoClient(uri);
 
 let db: Db;
 
+/**
+ * Connects user to the PKD-proj dtabase
+ * @returns connection to Db, if there is no connection
+ */
 export async function connectDB(): Promise<Db> {
   if (!db) {
     await client.connect()

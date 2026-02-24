@@ -10,10 +10,14 @@ import cors from "cors";
 
 const PORT = process.env.SR_PORT || 9000
 
+// initiates the express framewok 
 const app: Express = express()
+// translate json data into readable Javascript object
 app.use(express.json())
+// Allows request from all sites 
 app.use(cors());
 
+// Route to get all the buildings
 app.get("/maps/get/all", async (req, res)=> {
     const maps = await getAll()
 
@@ -22,6 +26,7 @@ app.get("/maps/get/all", async (req, res)=> {
     res.json(maps);
 })
 
+// Rounde to get a specific building by id
 app.get("/maps/get/:id", async (
     req: Request<{id: string}, Building>, 
     res: Response<Building | {error: string}>
@@ -38,6 +43,7 @@ app.get("/maps/get/:id", async (
     res.json(map);
 })
 
+// Route to create a building by id
 app.post("/maps/create/:id", async (
     req: Request<{id: string}, Building>, 
     res: Response<Building | {error: string}>
@@ -54,6 +60,7 @@ app.post("/maps/create/:id", async (
     res.json(map);
 })
 
+// Route to update a building by id in the params and data given via body
 app.post("/maps/update/:id", async (
     req: Request<{id: string}, Building, {map: Map}>, 
     res: Response< Building | { error: string } >

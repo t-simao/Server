@@ -73,6 +73,4 @@ app.post("/maps/update/:id", async (
 })
 
 
-app.listen(PORT, () => {
-    console.log(`${PORT}`)
-})
+export default app;

@@ -45,15 +45,16 @@ app.get("/maps/get/:id", async (
 
 // Route to create a building by id
 app.post("/maps/create/:id", async (
-    req: Request<{id: string}, Building>, 
+    req: Request<{id: string}, Building, {map: Map}>, 
     res: Response<Building | {error: string}>
 ) => {
+    const the_map = req.body.map
 
     if (typeof req.params.id !== "string") {
         return res.status(400).json({ error: "Wrong format information" });
     }
 
-    const map = await createMap(req.params.id, make_map());
+    const map = await createMap(req.params.id, the_map);
 
     if (!map) return res.status(404).json({error: "FAIL!"});
 

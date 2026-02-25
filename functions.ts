@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config()
 
-import { Map } from './lib/building';
+import { make_map, Map } from './lib/building';
 import { connectDB } from './db/db'
 import { WithId } from "mongodb";
 
@@ -21,7 +21,7 @@ export type Building = {
  * @param map the map, will be empty when created
  * @returns the newly created map or undefined
  */
-export async function createMap(id: string, map: Map): Promise<{ _id: string; map: Map } | undefined> {
+export async function createMap(id: string, map: Map = make_map()): Promise<{ _id: string; map: Map } | undefined> {
     const db = await connectDB();
     const maps = db.collection<Building>("maps")
 
